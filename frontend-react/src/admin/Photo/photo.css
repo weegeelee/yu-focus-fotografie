@@ -1,0 +1,269 @@
+.admin-mainbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.photo-aside {
+    width: 18rem;
+    background-color: #f1f1f1;
+    padding: 0 2rem;
+}
+
+.arrow-left {
+    display: none;
+}
+
+.photo-aside h2 {
+    font-size: 1.75rem;
+    margin: 2rem auto;
+}
+
+.photo-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 2rem 0;
+}
+
+.photos {
+    position: relative;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 10rem);
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem auto;
+}
+
+.photos-li {
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    margin: auto;
+}
+
+.photos-li img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.upload-box {
+    width: 80%;
+    border: 1px dashed #707070;
+    border-radius: 12px;
+    margin: 2rem auto;
+}
+
+.custom-upload-btn {
+    font: inherit;
+    font-size: 0.8rem;
+    width: 10rem;
+    cursor: pointer;
+    color: #fff;
+    background-color: #fcb541;
+    border: 1px solid #fcb541;
+    border-radius: 4px;
+    padding: 0.25rem 1rem;
+    margin: 3rem auto;
+}
+
+.delete-button {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 1.75rem;
+    height: 1.5rem;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0 5px;
+    display: none;
+
+}
+
+.photos li:hover .delete-button {
+    display: block;
+}
+
+.photo-name {
+    font-size: 0.8rem;
+    color: #7b7a7a;
+}
+
+.preview-box {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+}
+
+.preview-close-btn {
+    width: 100%;
+    position: relative;
+    padding: 1.25rem 0;
+}
+
+.preview-close-btn button {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    font: inherit;
+    color: #fff;
+    cursor: pointer;
+    background-color: transparent;
+    border: 2px solid #d5d5d5;
+    border-radius: 50%;
+    padding: 0 7px;
+}
+
+.preview-close-btn button:hover {
+    background-color: #7b7a7a;
+    ;
+}
+
+.preview-box img {
+    max-width: 60rem;
+    max-height: 40rem;
+}
+
+.preview-config {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+}
+
+.config-box {
+    margin: auto;
+}
+
+.preview-box span {
+    color: #fff;
+}
+
+.left,
+.right {
+    font: inherit;
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #d5d5d5;
+    border-radius: 50%;
+    padding: 0 7px;
+    margin: 0 0.5rem;
+}
+
+.left:hover {
+    background-color: #7b7a7a;
+    ;
+}
+
+.right:hover {
+    background-color: #7b7a7a;
+    ;
+}
+
+.confirm-modal {
+    width: 20rem;
+    text-align: left;
+    display: block;
+    padding: 0.25rem 1rem;
+    margin: auto;
+}
+
+.confirm-modal h3 {
+    text-align: left;
+    font-size: 1.2rem;
+    color: black;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.confirm-modal p {
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 740px) {
+    .admin-mainbox {
+        display: block;
+    }
+    .photo-aside {
+        position: relative;
+        width: 100%;
+        padding: 0;
+    }
+    
+    .arrow-left {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        display: inline-block;
+        background-color: transparent;
+    }
+    .arrow-left img {
+        width: 2rem;
+    }
+
+
+    .photo-aside h2 {
+        padding: 1rem 0;
+        margin: 0 auto;
+    }
+
+    .sidebtn-box {
+        display: flex;
+        justify-content: center;
+        background-color: #fafafa;
+        padding: 0;
+    }
+
+    .photo-aside div {
+        padding: 1rem;
+    }
+
+    .photos {
+        width: 100%;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fill, 5rem);
+        grid-auto-rows: 6rem;
+        gap: 1rem;
+        margin: 0 auto;
+    }
+
+    .photos-li {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .photos-li img {
+        border-radius: 6px;
+        object-fit: cover;
+    }
+
+    .confirm-modal {
+        width: 15rem;
+        text-align: left;
+        display: block;
+        padding: 0.25rem 1rem;
+        margin: auto;
+    }
+    .preview-img-box {
+        height: 35rem;
+    }
+    .preview-box img {
+        width: 100%; 
+        height: 100%; /* 图片高度按比例自适应 */
+        object-fit: contain;
+        margin: 0;
+    }
+    .preview-close-btn button {
+        right: 1rem;
+    }
+}

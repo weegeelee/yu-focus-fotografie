@@ -1,0 +1,24 @@
+#footer {
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 2rem 12rem;
+  }
+  
+  #footer-impressum {
+    padding: 1rem 1rem;
+  }
+  
+  #footer-impressum span{
+    color:#7b7a7a;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  #footer-impressum p {
+    padding-top: 0.5rem;
+  }
+  
+  @media (max-width: 740px) {
+    #footer {
+      margin: 2rem 1rem;
+    }
+  }

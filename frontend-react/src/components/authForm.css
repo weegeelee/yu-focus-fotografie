@@ -1,0 +1,67 @@
+.auth-form {
+    width: 100%;
+    padding: 5rem 0;
+    margin: auto;
+}
+
+.signup-form {
+    display: block;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.name-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.warn {
+    margin-top: 1rem;
+}
+
+.control-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.send-button {
+    font: inherit;
+    width: 100%;
+    color: #fff;
+    background-color: #fcb541;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 2rem 0;
+}
+
+.send-button:hover {
+    background-color: #fdbe59;
+}
+
+.link-button {
+    color: #fcb541;
+    background-color: transparent;
+}
+
+.link-button:hover {
+    color: #7b7a7a;
+}
+
+.auth-change {
+    text-align: center;
+}
+
+.link-button {
+    padding-right: 0;
+}
+
+@media (max-width: 740px) {
+    .signup-form h2 {
+        font-size: 2rem;
+    }
+}
