@@ -1,0 +1,283 @@
+.album-aside {
+    width: 18rem;
+    background-color: #f1f1f1;
+    padding: 0 2rem;
+}
+
+.album-aside h2 {
+    font-size: 2rem;
+    margin: 2rem auto;
+    padding: 0;
+}
+
+.album-button {
+    font: inherit;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 12rem;
+    cursor: pointer;
+    color: #fff;
+    background-color: #fcb541;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 1rem auto;
+}
+
+.album-button:hover {
+    background-color: #ffcf82;
+}
+
+.albumname {
+    margin: 3rem auto;
+}
+
+.albumname li {
+    display: flex;
+    margin: 1rem;
+}
+
+.albumname img {
+    height: 1.5rem;
+    margin-right: 1rem;
+}
+
+.album-input {
+    display: flex;
+    text-align: center;
+}
+
+.album-name {
+    color: #7b7a7a;
+}
+
+.album-name:hover {
+    color: #434343;
+}
+
+.new-album {
+    width: 100%;
+    margin: 2rem auto;
+}
+
+.new-album p {
+    margin-bottom: 2rem;
+}
+
+.modal-form {
+    width: 100%;
+    margin: auto;
+}
+
+.modal-box {
+    width: 20rem;
+    text-align: left;
+    display: block;
+    padding: 0.25rem 1rem;
+    margin: auto;
+}
+
+.modal-box h2 {
+    text-align: left;
+    font-size: 1.2rem;
+    color: black;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.modal-box label {
+    font-size: 0.8rem;
+}
+
+.modal-box input {
+    border: 1px solid #707070;
+    border-radius: 6px;
+}
+
+.new-album input:hover {
+    border-color: #fcb541;
+}
+
+.btn-box {
+    display: flex;
+    justify-content: start;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.cancel-btn {
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #fcb541;
+    background-color: #fff;
+    border: 1px solid #fcb541;
+    border-radius: 4px;
+    padding: 0.25rem 1rem;
+}
+
+.cancel-btn:hover {
+    color: #fff;
+    background-color: #fcb541;
+}
+
+.confirm-btn {
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #fff;
+    background-color: #fcb541;
+    border: 1px solid #fcb541;
+    border-radius: 4px;
+    padding: 0.25rem 1rem;
+}
+
+.confirm-btn:hover {
+    background-color: #ffcf82;
+}
+
+.galerie-icon {
+    width: 10rem;
+}
+
+.albums {
+    width: 80%;
+    display: grid;
+    justify-content: flex-start;
+    grid-template-columns: repeat(auto-fill, 14rem);
+    grid-auto-rows: 10rem;
+    gap: 2rem;
+    margin: 2rem;
+}
+
+.album-item {
+    position: relative;
+    width: 14rem;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.album-cover {
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.albumname-box {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    background-color: #fff;
+}
+
+.albumname-box p {
+    color: #7b7a7a;
+}
+
+.album-input {
+    height: 2rem;
+    padding: 0;
+    margin: 0;
+}
+
+.album-delete-btn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 2rem;
+    height: 1.5rem;
+    line-height: 2rem;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0 5px;
+    display: none;
+}
+
+.album-delete-btn img {
+    width: 100%;
+}
+
+.album-item:hover .album-delete-btn {
+    display: block;
+}
+
+.modal {
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+    width: 80%;
+    max-width: 30rem;
+    margin: auto;
+}
+
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+
+@media (max-width: 740px) {
+    .album-aside {
+        width: 100%;
+        padding: 0;
+    }
+    .album-aside h2 {
+        font-size: 1.75rem;
+        padding: 1rem;
+        margin: 0;
+    }
+    .album-aside div {
+        background-color: #fafafa;
+        padding-top: 2rem;
+    }
+    .new-album .album-button {
+        display: none;
+    }
+    .albumname {
+        display: none;
+    }
+    .modal-box {
+        width: 90%;
+        max-width: 15rem;
+        padding: 0.25rem;
+    }
+    .modal-form {
+        padding: 0;
+    }
+    .albums {
+        width: 90%;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fill, 9rem);
+        grid-auto-rows: 6rem;
+        gap: 1rem;
+        margin: 2rem auto;
+    }
+    .album-item {
+        width: 9rem;
+        height: 6rem;
+    }
+    .album-cover {
+        height: 4.5rem;
+    }
+    .albumname-box {
+        height: 1.5rem;
+        line-height: 1.5rem;
+    }
+    .album-input {
+        height: 1.5rem;
+    }
+    .album-delete-btn img {
+        display: none;
+    }
+} 
