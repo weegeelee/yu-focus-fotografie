@@ -1,9 +1,9 @@
 {
   "name": "fotografie-shop",
-  "homepage": "https://your-username.github.io/fotografie-shop",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://weegeelee.github.io/yu-focus-fotografie",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
