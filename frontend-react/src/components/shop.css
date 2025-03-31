@@ -1,0 +1,42 @@
+
+#code-box {
+    text-align: center;
+    max-width: 40rem;
+    border: 1px solid #d9d8d8;
+    box-shadow: 1px 1px 3px #c2c2c2;
+    border-radius: 6px;
+    padding: 2rem;
+}
+ 
+#input-box {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+#input-box button {
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #fff;
+    line-height: 1;
+    background-color:  #fcb541;
+    border: 1px solid #fcb541;
+    padding: 0.5rem 2rem;
+  }
+
+  #input-box button:hover {
+    background-color:  #fdbe59;
+    border: 1px solid  #fdbe59;
+  }
+
+  @media (max-width: 510px) {
+    #input-box {
+      display: block;
+    }
+
+    #input-box button {
+      margin-top: 2rem;
+    }
+  }

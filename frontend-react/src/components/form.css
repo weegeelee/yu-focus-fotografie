@@ -1,0 +1,129 @@
+#contact {
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 0 0 2rem;
+}
+.bg-box {
+    width: 100%;
+    max-width: 40rem;
+    background-image: url(../assets/contact-5.jpg);
+    background-size: cover;
+    padding-top: 2rem;
+}
+
+.contact-content {
+    width: 100%;
+    color: #fff;
+}
+
+.content {
+    width: 60%;
+    margin: auto;
+}
+
+.content h3 {
+    font-size: 1.75rem;
+    margin: 2rem auto;
+}
+
+.content p {
+    font-size: 1.15rem;
+    margin: 2rem auto;
+}
+
+.contact-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: 2rem;
+}
+
+.contact-content p {
+    padding-top: 0.5rem;
+}
+
+.contact-address {
+    margin: 1rem 0;
+}
+
+form {
+    width: 100%;
+    max-width: 40rem;
+    font-size: 1rem;
+    color: #7b7a7a;
+    padding: 4rem;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.75rem;
+    color: #7b7a7a;
+    padding: 1rem;
+}
+
+label {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.contact-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+input,
+textarea {
+    width: 100%;
+    border: 1px solid #d4d4d4;
+    padding: 0.5rem;
+}
+
+input:focus,
+textarea:focus {
+    border: 1px solid #fcb541;
+}
+
+.message-box {
+    margin: 2.5rem 0;
+}
+
+.contact-button {
+    text-align: center;
+}
+
+.contact-button button {
+    font: inherit;
+    width: 100%;
+    color: #fff;
+    background-color: #fcb541;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 2rem 0;
+}
+
+.contact-button button:hover {
+    background-color: #fdbe59;
+}
+
+@media (max-width: 740px) {
+    #contact {
+        height: 100%;
+        display: block;
+        margin: auto;
+    }
+    form {
+        padding: 2rem;
+    }
+    
+    .bg-box {
+        margin: auto;
+    }
+    .contact-content {
+        padding: 2rem 0;
+    }
+
+}
