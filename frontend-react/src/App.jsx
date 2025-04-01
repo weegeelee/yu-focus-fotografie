@@ -44,11 +44,11 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <SelectedPhotosProvider>
-        <CartProvider>
+      <CartProvider>
+        <SelectedPhotosProvider>
           <Outlet />
-        </CartProvider>
-      </SelectedPhotosProvider>),
+        </SelectedPhotosProvider>
+      </CartProvider>),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -88,8 +88,10 @@ const router = createBrowserRouter([
         ],
       }
     ],
-  }
-]);
+  },
+], {
+  basename: "/yu-focus-fotografie",
+});
 
 export default App
 

@@ -7,6 +7,7 @@ export default function CartProvider({ children }) {
     const EXPIRATION_TIME = 60 * 60 * 1000;
     const { albumId } = useParams();
     const [cart, setCart] = useState(() => {
+        if (!albumId) return []; 
         try {
             if (!albumId) return [];
             const savedCart = localStorage.getItem(`cart-${albumId}`);
@@ -19,7 +20,7 @@ export default function CartProvider({ children }) {
                 return cart;
             }
         } catch (error) {
-            console.log(" 解析 localStorage 失败", error);
+            console.log(" Failed to parse localStorage", error);
         } return [];
     });
 

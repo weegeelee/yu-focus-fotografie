@@ -7,8 +7,8 @@ import UserProgressContextProvider from "../components/store/UserProgressContext
 
 export default function RootLayout() {
   return (
-    <SelectedPhotosProvider>
-      <CartProvider>
+    <CartProvider>
+      <SelectedPhotosProvider>
         <UserProgressContextProvider>
           <Header />
           <main>
@@ -16,7 +16,7 @@ export default function RootLayout() {
           </main>
           <Footer />
         </UserProgressContextProvider>
-      </CartProvider>
-    </SelectedPhotosProvider>
+      </SelectedPhotosProvider>
+    </CartProvider>
   );
 }
