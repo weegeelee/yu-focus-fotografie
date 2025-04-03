@@ -7,11 +7,12 @@ export default function Prise() {
     <div className="gallery-box">
       <div className="greet-box">
         <h2>Hey, schön dass ihr hier seid!</h2>
-        <p>Ich bin Yu,<br />eure Neugeborenen- und Familienfotografin aus Wörth am Rhein in der Umgebung Südpfalz und Karlsruhe.</p>
-        <p>Ich liebe die Fotografie mir all ihren natürlichen, authentischen und individuellen Momenten. Ich bin spezialisiert auf die emotionale, zeitlose Fotografie von Neugeborenen, Kindern und Familien.</p>
-        <p>Egal ob draußen in der Natur oder bei euch zu Hause liebe ich eure Momente in eine entspannenden, wohlfühlenden und vertrauten Atmosphäre festzuhalten. Der Moment, an den ihr nach vielen Jahren immer noch schöne Erinnerungen haben werdet, sowohl im Kopf als auch auf den Fotos, ist für die Ewigkeit.</p>
+        <p><span>Ich bin Yu,</span><br />eure <span>Neugeborenen-</span> und <span>Familienfotografin</span> aus Wörth am Rhein in der Umgebung Südpfalz und Karlsruhe.</p>
+        <p>Ich liebe die Fotografie mir all ihren <span>natürlichen, authentischen</span> und <span>individuellen</span> Momenten. Ich bin spezialisiert auf die emotionale, zeitlose Fotografie von Neugeborenen, Kindern und Familien.</p>
+        <p>Egal ob draußen <span>in der Natur</span> oder bei euch <span>zu Hause</span> liebe ich eure Momente in eine <span>entspannenden, wohlfühlenden</span> und <span>vertrauten</span> Atmosphäre festzuhalten. Der Moment, an den ihr nach vielen Jahren immer noch <span>schöne Erinnerungen</span> haben werdet, sowohl im Kopf als auch auf den Fotos, ist für die Ewigkeit.</p>
       </div>
-      <div className="prise-box">
+      <h2>Preis</h2>
+      <div className="prise-box babyshooting">
         <div className="prise-detail">
           <h3>Babyfotografie</h3>
           <h4>Du bekommst</h4>

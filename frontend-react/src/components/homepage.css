@@ -55,7 +55,12 @@
 .greet-box {
     width: 80%;
     max-width: 35rem;
-    margin: 2rem auto;
+    margin: 4rem auto;
+}
+
+.gallery-box h2 {
+    line-height: 2rem;
+    padding: 0;
 }
 
 .greet-box p {
@@ -63,7 +68,12 @@
     margin: 1.5rem auto;
 }
 
+.greet-box span {
+    font-size: 1.4rem;
+}
+
 .prise-box {
+    width: 100%;
     display: flex;
     padding: 2rem 0;
 }
@@ -75,14 +85,16 @@
 }
 
 .prise-detail {
+    width: 40%;
     text-align: left;
+    border-top: 1px solid #c1c1c1;
     border-bottom: 1px solid #c1c1c1;
-    padding: 2rem 1rem;
+    padding: 2rem;
     margin: 0 auto;
 }
 
 .prise-detail h3 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     text-transform: uppercase;
 }
 
@@ -115,7 +127,6 @@
     width: 80%;
     max-width: 50rem;
     border-bottom: 0.1rem solid #c1c1c1;
-    ;
     margin: 0.5rem auto;
 }
 
@@ -225,9 +236,32 @@
         width: 100%;
     }
 
-    .greet-box h2 {
-        font-size: 2rem;
+    .gallery-box .babyshooting {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    } 
+
+    .prise-box {
+        display: block;
+        text-align: center;
+    } 
+
+    .prise-box img {
+        width: 100%;
+    }
+    
+    .gallery-box h2 {
+        font-size: 2.5rem;
         padding: 0;
+    }
+
+    .prise-detail {
+        width: 80%;
+        border-top: none;
+        padding: 1rem 0;
+        margin: 1rem auto;
     }
 
     .faq-box {
