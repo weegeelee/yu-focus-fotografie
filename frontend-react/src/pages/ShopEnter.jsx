@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/UI/Input";
-import axios from "axios";
+import api from "../../api.js";
 import "../components/shop.css"
 
 export default function Shop() {
@@ -17,7 +17,7 @@ export default function Shop() {
       return;
     }
     try {
-      const response = await axios.get(`http://localhost:3000/albums/${albumId}`);
+      const response = await api.get(`/albums/${albumId}`);
       if (response.data) {
         navigate(`/shop/${albumId}`);
       } else {

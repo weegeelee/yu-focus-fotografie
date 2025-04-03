@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import axios from "axios";
+import api from "../../../api.js";
 import { useNavigate } from "react-router-dom";
 import { UserProgressContext } from "../../components/store/UserProgressContext";
 import Input from "../../components/UI/Input";
@@ -7,7 +7,7 @@ import Modal from "../../components/UI/Modal";
 import "./album.css";
 
 export default function NewAlbum({ onAdd }) {
-    const [name, setName] = useState('');
+    const [name, setName] = useState("");
     const userProgressCtx = useContext(UserProgressContext);
     const navigate = useNavigate();
 
@@ -18,12 +18,12 @@ export default function NewAlbum({ onAdd }) {
         try {
             const albumId = generateUniqueId();
             const albumData = { id: albumId, name };
-            const response = await axios.post('http://localhost:3000/addalbum', albumData);
+            const response = await api.post("/addalbum", albumData);
             onAdd(response.data); 
             userProgressCtx.hideNewAlbum();
             navigate(`/admin/album/${albumId}`);
         } catch (error) {
-            console.error('Error uploading album:', error.message);
+            console.error("Error uploading album:", error.message);
         }
     };
 

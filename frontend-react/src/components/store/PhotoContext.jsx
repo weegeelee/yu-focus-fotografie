@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useRef } from "react";
-import axios from "axios";
+import api from "../../../api.js";
 import { useParams } from "react-router-dom";
 
 export const SelectedPhotosContext = createContext({
@@ -38,7 +38,7 @@ export default function SelectedPhotosProvider({ children }) {
     if (!albumId) return;
     const fetchAlbum = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/albums/${albumId}`);
+        const response = await api.get(`/albums/${albumId}`);
         const fetchedAlbum = response.data;
         setAlbum({ ...fetchedAlbum, albumId: fetchedAlbum.id });
       } catch (error) {

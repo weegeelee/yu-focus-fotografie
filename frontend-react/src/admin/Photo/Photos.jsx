@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../../api.js";
 import Modal from "../../components/UI/Modal";
 import Delete from "../../assets/icon/delete.png";
 import "./photo.css";
@@ -15,7 +15,7 @@ export default function Photos({ albumId }) {
     useEffect(() => {
         const fetchPhotos = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/photos?albumId=${albumId}`);
+                const response = await api.get(`/photos?albumId=${albumId}`);
                 setPhotos(response.data);
             } catch (err) {
                 setError("Failed to fetch photos");
@@ -41,7 +41,7 @@ export default function Photos({ albumId }) {
 
     const handleDeletePhoto = async () => {
         try {
-            await axios.delete(`http://localhost:3000/deletephoto/${selectedPhotoId}`);
+            await api.delete(`/deletephoto/${selectedPhotoId}`);
             setPhotos((prevPhotos) => prevPhotos.filter(photo => photo.id !== selectedPhotoId));
         } catch (error) {
             console.error("Error deleting photo:", error.message);

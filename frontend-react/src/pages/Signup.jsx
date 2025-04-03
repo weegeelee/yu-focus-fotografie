@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import Input from "../components/UI/Input.jsx";
-import axios from "axios";
+import api from "../../api.js";
 import "../components/authForm.css";
 
 export default function Signup() {
@@ -19,11 +19,7 @@ export default function Signup() {
         const userData = Object.fromEntries(formData.entries());
 
         try {
-            const response = await axios.post("http://localhost:3000/signup", userData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await api.post("/signup", userData);
 
             if (!response.ok) {
                 throw new Error("Failed to register user");

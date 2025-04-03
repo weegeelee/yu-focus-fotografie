@@ -1,48 +1,49 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import PhotoSide from './PhotoSide';
-import Photos from './Photos';
-import Modal from '../../components/UI/Modal';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import api from "../../../api.js";
+import PhotoSide from "./PhotoSide";
+import Photos from "./Photos";
+import Modal from "../../components/UI/Modal";
 
 export default function AddPhoto() {
     const { albumId } = useParams();
     const [uploading, setUploading] = useState(false);
     const [photosUpdated, setPhotosUpdated] = useState(false);
-    const [existingPhotos, setExistingPhotos] = useState([]); // 已上传的照片
-    const [duplicateFiles, setDuplicateFiles] = useState([]); // 存储重复文件
+    const [existingPhotos, setExistingPhotos] = useState([]);
+    const [duplicateFiles, setDuplicateFiles] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
     const [pendingUploadFiles, setPendingUploadFiles] = useState([]);
 
     useEffect(() => {
         if (!albumId) return;
-        axios.get(`http://localhost:3000/photos?albumId=${albumId}`)
-            .then(response => {
+        const fetchPhotos = async () => {
+            try {
+                const response = api.get(`/photos?albumId=${albumId}`);
                 setExistingPhotos(response.data);
-            })
-            .catch(error => console.error("Error fetching existing photos:", error));
+            } catch (error) {
+                console.error("Error fetching existing photos:", error);
+            }
+        };
+        fetchPhotos();
     }, [albumId, photosUpdated]);
 
     const handleUpload = async (event) => {
         const files = Array.from(event.target.files);
         if (!files.length) return;
 
-        // 1. 检查是否有重复文件
         const duplicates = files.filter(file => existingPhotos.some(photo => photo.name === file.name));
         if (duplicates.length > 0) {
             setDuplicateFiles(duplicates);
-            setPendingUploadFiles(files); // 暂存所有待上传的文件
-            setShowConfirm(true); // 打开 Modal
+            setPendingUploadFiles(files); 
+            setShowConfirm(true); 
             return;
         }
-        // 2. 没有重复文件，直接上传
         uploadFiles(files);
     };
 
-    // **执行上传逻辑**
     const uploadFiles = async (files) => {
         if (!albumId) {
-            alert("错误: albumId 未定义，无法上传！");
+            alert("Error: albumId is undefined, cannot upload!");
             return;
         }
         setUploading(true);
@@ -51,9 +52,7 @@ export default function AddPhoto() {
         files.forEach(file => formData.append("photos", file));
 
         try {
-            const response = await axios.post(`http://localhost:3000/albums/${albumId}/photos`, formData, {
-                headers: { "Content-Type": "multipart/form-data" }
-            });
+            const response = await api.post(`/albums/${albumId}/photos`, formData);
             console.log("Uploaded successfully", response.data);
             alert("Hochladen ist fertig!");
             setPhotosUpdated(!photosUpdated);
@@ -70,7 +69,7 @@ export default function AddPhoto() {
             const deletePromises = duplicateFiles.map(file => {
                 const photoToDelete = existingPhotos.find(photo => photo.name === file.name);
                 if (photoToDelete) {
-                    return axios.delete(`http://localhost:3000/deletephoto/${photoToDelete.id}`)
+                    return api.delete(`/deletephoto/${photoToDelete.id}`)
                 } else {
                     console.warn(`Datei nicht gefunden: ${file.name}`);
                     return Promise.resolve();
@@ -89,13 +88,13 @@ export default function AddPhoto() {
         if (filesToUpload.length > 0) {
             uploadFiles(filesToUpload);
         } else {
-            console.log("所有文件都重复，跳过上传");
+            console.log("All files are duplicated, skip uploading");
         }
     };
 
     const handleDeleteAllPhotos = async () => {
         try {
-            await axios.delete(`http://localhost:3000/albums/${albumId}/photos`);
+            await api.delete(`/albums/${albumId}/photos`);
             setPhotosUpdated(prev => !prev);
         } catch (error) {
             console.error("Delete failed:", error);

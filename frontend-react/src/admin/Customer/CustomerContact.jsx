@@ -1,82 +1,29 @@
 import { useState, useEffect } from "react";
 import Modal from "../../components/UI/Modal";
 import ContactSide from "./ContactSide";
-import axios from "axios";
+import api from "../../../api.js";
 import "./customer.css"
 
 export default function CustomerContact() {
     const [contacts, setContacts] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedContacts, setSelectedContacts] = useState(new Set());
-    const [deleteType, setDeleteType] = useState(null); // "single" 或 "batch"
     const [deleteTarget, setDeleteTarget] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            console.error("No token found, redirecting to login...");
-            return;
-        }
-        axios.get("http://localhost:3000/contact", {
-            headers: { Authorization: `Bearer ${token}` },
-        })
-            .then((response) => {
+        const fetchContact = async () => {
+            try {
+                const response = await api.get("http://localhost:3000/contact");
                 const sortedContacts = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
                 setContacts(sortedContacts);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error("Failed to fetch data", error);
-            });
+            };
+        };
+        fetchContact();
     }, []);
-
-   /* const toggleSelect = (id) => {
-        const updatedSelected = new Set(selectedContacts);
-        if (updatedSelected.has(id)) {
-            updatedSelected.delete(id);
-        } else {
-            updatedSelected.add(id);
-        }
-        setSelectedContacts(updatedSelected);
-    };
-
-    // ✅ 处理单条删除（先弹出确认框）
-    const handleDeleteClick = (id) => {
-        setDeleteType("single");
-        setDeleteTarget(id);
-        setShowConfirm(true);
-    };
-
-    // ✅ 处理批量删除（先弹出确认框）
-    const handleBatchDeleteClick = () => {
-        if (selectedContacts.size === 0) return;
-        setDeleteType("batch");
-        setDeleteTarget(Array.from(selectedContacts));
-        setShowConfirm(true);
-    };
-
-    // ✅ 确认删除
-    const handleConfirmDelete = () => {
-        if (deleteType === "single") {
-            // 单条删除 API 请求
-            axios.delete(`http://localhost:3000/contact/${deleteTarget}`)
-                .then(() => {
-                    setContacts(contacts.filter(contact => contact._id !== deleteTarget));
-                    setShowConfirm(false);
-                })
-                .catch((error) => console.error("Failed to delete", error));
-        } else if (deleteType === "batch") {
-            // 批量删除 API 请求
-            axios.post("http://localhost:3000/contact/batch-delete", { ids: deleteTarget })
-                .then(() => {
-                    setContacts(contacts.filter(contact => !deleteTarget.includes(contact._id)));
-                    setSelectedContacts(new Set()); // 清空选择
-                    setShowConfirm(false);
-                })
-                .catch((error) => console.error("Failed to delete", error));
-        }
-    };*/
 
     const toggleSelect = (id) => {
         setSelectedContacts((prevSelected) => {
@@ -90,37 +37,34 @@ export default function CustomerContact() {
         });
     };
 
-    // 全选 / 取消全选
     const toggleSelectAll = () => {
         setSelectedContacts((prevSelected) => {
             if (prevSelected.size === contacts.length) {
-                return new Set(); // 取消全选
+                return new Set();
             } else {
-                return new Set(contacts.map(contact => contact._id)); // 选中所有
+                return new Set(contacts.map(contact => contact._id));
             }
         });
     };
 
-    // 触发删除确认框
     const handleBatchDeleteClick = () => {
         if (selectedContacts.size === 0) return;
         setDeleteTarget(Array.from(selectedContacts));
         setShowConfirm(true);
     };
 
-    // 确认删除
-    const handleConfirmDelete = () => {
+    const handleConfirmDelete = async () => {
         if (selectedContacts.size === 0) return;
 
         const idsToDelete = Array.from(selectedContacts);
-
-        axios.post("http://localhost:3000/contact/batch-delete", { ids: idsToDelete })
-            .then(() => {
-                setContacts(contacts.filter(contact => !idsToDelete.includes(contact._id)));
-                setSelectedContacts(new Set()); // 清空选择
-                setShowConfirm(false);
-            })
-            .catch((error) => console.error("Failed to delete", error));
+        try {
+            await api.post("/contact/batch-delete", { ids: idsToDelete });
+            setContacts(contacts.filter(contact => !idsToDelete.includes(contact._id)));
+            setSelectedContacts(new Set());
+            setShowConfirm(false);
+        } catch (error) {
+            console.error("Failed to delete", error);
+        }
     };
 
     const startIndex = (currentPage - 1) * pageSize;
@@ -130,9 +74,9 @@ export default function CustomerContact() {
     return (
         <main className="contact-container">
             <ContactSide
-                onDelete={handleBatchDeleteClick} 
-                onSelectAll={toggleSelectAll} 
-                selectedCount={selectedContacts.size} 
+                onDelete={handleBatchDeleteClick}
+                onSelectAll={toggleSelectAll}
+                selectedCount={selectedContacts.size}
                 totalContacts={contacts.length}
             />
             <ul className="message-container">

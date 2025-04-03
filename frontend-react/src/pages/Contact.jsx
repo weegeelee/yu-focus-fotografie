@@ -1,5 +1,5 @@
 import Input from "../components/UI/Input.jsx";
-import axios from "axios";
+import api from "../../api.js";
 import "../components/form.css";
 
 export default function ContactForm() {
@@ -7,18 +7,17 @@ export default function ContactForm() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const contactData = Object.fromEntries(formData.entries());
-    console.log(contactData);
+    
     try {
-      const response = await axios.post('http://localhost:3000/contact', contactData, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-      await response.json();
+      const response = await api.post("/contact", contactData);
+      console.log("Response:", response.data); 
       alert("Message sent successfully!");
       event.target.reset();
     } catch (error) {
       console.error('Error uploading message:', error.message);
     }
   };
+
   return (
     <div id='contact'>
       <form onSubmit={handleSubmit}>

@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from "react"; 
+import { useState, useEffect, useContext } from "react";
 import { UserProgressContext } from "../../components/store/UserProgressContext.jsx";
-import axios from "axios";
+import api from "../../../api.js";
 import AlbumSidebar from "./AlbumSidebar.jsx";
 import NewAlbum from "./NewAlbum.jsx";
 import NoAlbumSelected from "./NoAlbumSelected.jsx";
@@ -12,9 +12,15 @@ export default function AddAlbum() {
     const [albums, setAlbums] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/allalbums")
-            .then(response => setAlbums(response.data))
-            .catch(error => console.error("Error fetching albums:", error));
+        const fetchAlbums = async () => {
+            try {
+                const response = api.get("/allalbums");
+                setAlbums(response.data);
+            } catch (error) {
+                console.error("Error fetching albums:", error);
+            }
+        };
+        fetchAlbums();
     }, []);
 
     function handleOpenNewAlbum() {
@@ -33,7 +39,7 @@ export default function AddAlbum() {
     return (
         <main className="admin-mainbox">
             <AlbumSidebar albums={albums} setAlbums={setAlbums} />
-            
+
             {albums.length > 0 ? (
                 <ul className='albums'>
                     {albums.map((album) => (
@@ -42,10 +48,10 @@ export default function AddAlbum() {
                 </ul>
             ) : (
                 <NoAlbumSelected onStartAddAlbum={handleOpenNewAlbum} />
-            )} 
+            )}
             {userProgressCtx.progress === "newalbum" && (
                 <NewAlbum onAdd={handleAlbumAdded} />
-            )}       
+            )}
         </main>
     );
 }

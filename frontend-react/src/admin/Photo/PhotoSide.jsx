@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../../api.js";
 import Modal from "../../components/UI/Modal";
 import ArrowLeft from "../../assets/icon/pfeil-kreis-links.png"
 
@@ -12,21 +12,26 @@ export default function PhotoSide({ onDeleteAll }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/albums/${albumId}`)
-            .then(response => {
+        const fetchAlbum = async () => {
+            try {
+                const response = await api.get(`/albums/${albumId}`);
                 setAlbumName(response.data.name);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.log("Error fetching album:", error);
-            });
-        axios.get(`http://localhost:3000/photos?albumId=${albumId}`)
-            .then(response => {
-                console.log("相册照片数据:", response.data);
-                setPhotos(response.data); // 确保 photos 被正确填充
-            })
-            .catch(error => {
+            };
+        };
+        fetchAlbum();
+
+        const fetchPhotos = async () => {
+            try {
+                const response = api.get(`/photos?albumId=${albumId}`);
+                console.log("photos data:", response.data);
+                setPhotos(response.data);
+            } catch (error) {
                 console.error("Error fetching photos:", error);
-            });
+            };
+        };
+        fetchPhotos();
     }, [albumId]);
 
     const handleDeleteClick = () => {

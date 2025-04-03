@@ -3,7 +3,6 @@ import { UserProgressContext } from "../../components/store/UserProgressContext"
 import { Link } from "react-router-dom";
 import Folder from "../../assets/icon/folder.png";
 import "./album.css";
-import axios from "axios";
 
 export default function AlbumSidebar({ albums = [] }) {
     const userProgressCtx = useContext(UserProgressContext);

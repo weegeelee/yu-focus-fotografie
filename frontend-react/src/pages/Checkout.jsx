@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { SelectedPhotosContext } from "../components/store/PhotoContext.jsx";
 import { CartContext } from "../components/store/CartContext.jsx";
 import Input from "../components/UI/Input.jsx";
-import axios from "axios";
+import api from "../../api.js";
 import "../components/checkout.css"
 
 export default function Checkout() {
@@ -27,21 +27,21 @@ export default function Checkout() {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        const userId = localStorage.getItem("userId");
+        const fetchUserData = async () => {
+            const token = localStorage.getItem("token");
+            const userId = localStorage.getItem("userId");
 
-        if (!userId || !token) return;
-        axios.get(`http://localhost:3000/users/${userId}`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then((response) => {
+            if (!userId || !token) return;
+            try {
+                const response = await api.get(`/users/${userId}`);
                 console.log("Fetched user data:", response.data);
                 setUser(response.data);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error("Failed to fetch user details", error);
                 setError(error.response?.data?.message || "An error occurred");
-            });
+            };
+        };
+        fetchUserData();
     }, []);
 
     const handleAddressChange = (e) => {
@@ -67,13 +67,7 @@ export default function Checkout() {
                 alert("Warenkorb ist leer!");
                 return;
             }
-            const response = await axios.post(
-                'http://localhost:3000/cart', JSON.stringify(cartData), {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-            });
+            const response = await api.post("/cart", JSON.stringify(cartData));
             console.log(response.data);
             alert("Cart submitted successfully!");
             clearCart();

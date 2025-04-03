@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import api from "../../api.js";
 
 const initialState = {
   isAdmin: JSON.parse(localStorage.getItem("isAdmin")) || false, 
@@ -23,13 +24,7 @@ export const fetchIsAdmin = () => async (dispatch, getState) => {
 
   if (!token) return; 
   try {
-    const response = await fetch("http://localhost:3000/admin/status", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`, 
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await api.get("/admin/status");
 
     if (!response.ok) {
       throw new Error("Failed to fetch admin status");

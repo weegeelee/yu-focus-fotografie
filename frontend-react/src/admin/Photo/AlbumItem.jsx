@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import api from "../../../api.js";
 import Delete from "../../assets/icon/delete.png";
 import galerie from "../../assets/icon/photos.png";
 import Modal from "../../components/UI/Modal";
@@ -15,16 +15,17 @@ export default function AlbumItem({ album, setAlbums, onRemove }) {
 
     useEffect(() => {
         if (!album?.id) return;
-
-        axios.get(`http://localhost:3000/photos?albumId=${album.id}`)
-            .then(response => {
+        const fetchAlbumItem = async () => {
+            try {
+                const response = await api.get(`/photos?albumId=${album.id}`);
                 if (response.data.length > 0) {
                     setPhotos(response.data);
-                }
-            })
-            .catch(error => {
+                };
+            } catch (error) {
                 console.error("Error fetching photos:", error);
-            });
+            };
+        };
+        fetchAlbumItem();
     }, [album?.id]);
 
     function handleEditClick(album) {
@@ -35,7 +36,7 @@ export default function AlbumItem({ album, setAlbums, onRemove }) {
     async function handleSave(albumId) {
         try {
             if (!albumName.trim()) return;
-            await axios.put(`http://localhost:3000/albums/${albumId}`, { name: albumName });
+            await api.put(`/albums/${albumId}`, { name: albumName });
             setAlbums((prevAlbums) =>
                 prevAlbums.map(album =>
                     album.id === albumId ? { ...album, name: albumName } : album
@@ -53,7 +54,7 @@ export default function AlbumItem({ album, setAlbums, onRemove }) {
 
     const handleDeleteAlbum = async () => {
         try {
-            await axios.delete(`http://localhost:3000/deletealbum/${album.id}`);
+            await api.delete(`/deletealbum/${album.id}`);
             onRemove(album.id);
         } catch (error) {
             console.error("Error deleting album:", error.message);
@@ -76,8 +77,8 @@ export default function AlbumItem({ album, setAlbums, onRemove }) {
                     <input className="album-input"
                         value={albumName}
                         onChange={(event) => setAlbumName(event.target.value)}
-                        onBlur={() => handleSave(album.id)} 
-                        onKeyDown={(event) => event.key === "Enter" && handleSave(album.id)} 
+                        onBlur={() => handleSave(album.id)}
+                        onKeyDown={(event) => event.key === "Enter" && handleSave(album.id)}
                         autoFocus
                     />
                 ) : <p className='album-name'>{album.name} <span>{photos.length > 0 ? photos.length : ""}</span></p>}

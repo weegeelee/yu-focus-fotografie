@@ -1,28 +1,22 @@
 import { useState, useEffect } from "react";
 import CustomerTable from "./CustomerTable.jsx";
 import CustomerSide from "./CustomerSide.jsx"
-import axios from "axios";
+import api from "../../../api.js";
 import "./customer.css"
 
 export default function Customer() {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log("🔍 Token before API request:", token);
-    if (!token) {
-      console.error("No token found, redirecting to login...");
-      return; 
-    }
-    axios.get("http://localhost:3000/customers", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((response) => {
+    const fetchCustomers = async () => {
+      try {
+      const response = await api.get("/customers");
         setCustomers(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Failed to fetch data", error);
-      });
+      };
+    };
+    fetchCustomers();
   }, []);
 
   const handleConfirmDelete = async (userId) => {
@@ -30,17 +24,8 @@ export default function Customer() {
       console.error("Error: selectedUserId is null or undefined!");
       return;
     }
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found, redirecting to login...");
-      return; 
-    }
     try {
-      await axios.delete(`http://localhost:3000/customers/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await api.delete(`/customers/${userId}`);
       const updatedCustomers = customers.filter(customer => customer._id !== userId);
       setCustomers(updatedCustomers); 
     } catch (error) {

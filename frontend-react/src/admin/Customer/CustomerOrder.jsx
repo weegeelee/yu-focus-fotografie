@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../../api.js";
 import ArrowLeft from "../../assets/icon/pfeil-kreis-links.png"
 import "./customer.css";
 
@@ -11,18 +11,17 @@ export default function CustomerOrder() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        axios.get(`http://localhost:3000/customers/${customerId}`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then((response) => {
+        const fetchCustomer = async () => {
+            try {
+                const response = await api.get(`/customers/${customerId}`);
                 console.log("Fetched customer data:", response.data);
                 setCustomer(response.data);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error("Failed to fetch customer details", error);
                 setError(error.response?.data?.message || "An error occurred");
-            });
+            };
+        };
+        fetchCustomer();
     }, [customerId]);
 
     if (error) {

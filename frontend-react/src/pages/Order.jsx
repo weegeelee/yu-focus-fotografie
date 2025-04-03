@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import axios from "axios";
+import api from "../../api.js";
 import "../components/order.css"
 
 export default function Order() {
@@ -14,9 +14,7 @@ export default function Order() {
                 const userId = localStorage.getItem('userId');
                 if (!userId || !token) return;
 
-                const response = await axios.get(`http://localhost:3000/customers/${userId}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+                const response = await api.get(`/customers/${userId}`);
                 if (response.data) {
                     setCartData(response.data);
                 }

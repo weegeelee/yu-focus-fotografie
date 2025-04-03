@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import api from "../../api.js";
 
 const initialState = {
   isAuth: !!localStorage.getItem("token"),
@@ -37,21 +38,13 @@ export default authSlice.reducer;
 
 export const login = (credentials) => async (dispatch) => {
   try {
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
-
+    const response = await api.post("/login", credentials);
     if (!response.ok) {
       throw new Error(`Login failed: ${response.statusText}`);
     }
 
     const userData = await response.json();
 
-    
     if (!userData.userId) {
       throw new Error("User ID is missing in the response");
     }
