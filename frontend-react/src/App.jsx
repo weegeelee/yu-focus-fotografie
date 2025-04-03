@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, useLocation } from "react-router-d
 import { Outlet } from 'react-router-dom';
 import SelectedPhotosProvider from "./components/store/PhotoContext.jsx";
 import CartProvider from "./components/store/CartContext.jsx";
+import UserProgressContextProvider from "./components/store/UserProgressContext.jsx";
 import RootLayout from "./pages/Root.jsx";
 import HomePage from "./pages/Home.jsx";
 import Contact from "./pages/Contact.jsx";
@@ -46,7 +47,9 @@ const router = createBrowserRouter([
     element: (
       <CartProvider>
         <SelectedPhotosProvider>
-          <Outlet />
+          <UserProgressContextProvider>
+            <Outlet />
+          </UserProgressContextProvider>
         </SelectedPhotosProvider>
       </CartProvider>),
     errorElement: <ErrorPage />,

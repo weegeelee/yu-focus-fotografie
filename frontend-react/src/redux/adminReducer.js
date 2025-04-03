@@ -26,11 +26,7 @@ export const fetchIsAdmin = () => async (dispatch, getState) => {
   try {
     const response = await api.get("/admin/status");
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch admin status");
-    }
-
-    const data = await response.json();
+    const data = response.data;
    
     dispatch(setAdminStatus(data.isAdmin)); 
     return data.isAdmin;

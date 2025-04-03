@@ -14,7 +14,7 @@ export default function AddAlbum() {
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
-                const response = api.get("/allalbums");
+                const response = await api.get("/allalbums");
                 setAlbums(response.data);
             } catch (error) {
                 console.error("Error fetching albums:", error);
@@ -40,7 +40,7 @@ export default function AddAlbum() {
         <main className="admin-mainbox">
             <AlbumSidebar albums={albums} setAlbums={setAlbums} />
 
-            {albums.length > 0 ? (
+            {albums && albums.length > 0 ? (
                 <ul className='albums'>
                     {albums.map((album) => (
                         <AlbumItem key={album.id} album={album} setAlbums={setAlbums} onRemove={handleRemoveAlbum} />

@@ -39,11 +39,7 @@ export default authSlice.reducer;
 export const login = (credentials) => async (dispatch) => {
   try {
     const response = await api.post("/login", credentials);
-    if (!response.ok) {
-      throw new Error(`Login failed: ${response.statusText}`);
-    }
-
-    const userData = await response.json();
+    const userData = response.data;
 
     if (!userData.userId) {
       throw new Error("User ID is missing in the response");
@@ -51,13 +47,12 @@ export const login = (credentials) => async (dispatch) => {
     if (!userData.token) {
       throw new Error("❌ No token received from API");
     }
-
+ 
     dispatch(loginSuccess({
       token: userData.token,
       firstname: userData.firstname,
       userId: userData.userId
     }));
-
   } catch (error) {
     console.log("Error login user:", error.message);
     throw error; 
