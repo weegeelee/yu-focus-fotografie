@@ -1,5 +1,5 @@
 import { createContext, useEffect } from "react";
-import { createBrowserRouter, RouterProvider, useLocation } from "react-router-dom";
+import { createHashRouter, RouterProvider, useLocation } from "react-router-dom";
 import { Outlet } from 'react-router-dom';
 import SelectedPhotosProvider from "./components/store/PhotoContext.jsx";
 import CartProvider from "./components/store/CartContext.jsx";
@@ -41,7 +41,7 @@ function ScrollWrapper() {
 
   return <Outlet />;
 }
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: (
@@ -92,9 +92,7 @@ const router = createBrowserRouter([
       }
     ],
   },
-], {
-  basename: "/yu-focus-fotografie/",
-});
+]);
 
 export default App
 
