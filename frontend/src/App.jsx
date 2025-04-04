@@ -93,7 +93,7 @@ const router = createBrowserRouter([
     ],
   },
 ], {
-  basename: "/yu-focus-fotografie",
+  basename: "/yu-focus-fotografie/",
 });
 
 export default App
