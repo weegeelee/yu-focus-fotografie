@@ -15,7 +15,7 @@ export default function CustomerContact() {
     useEffect(() => {
         const fetchContact = async () => {
             try {
-                const response = await api.get("http://localhost:3000/contact");
+                const response = await api.get("/contact");
                 const sortedContacts = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
                 setContacts(sortedContacts);
             } catch (error) {
