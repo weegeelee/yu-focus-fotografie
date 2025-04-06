@@ -42,6 +42,7 @@ export default function Shop() {
             <button type="submit">Gehen zum Album</button>
           </p>
         </div>
+        <p className="testcode">Test Code: pvglyf068</p>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <p>Haben Sie einen Zugangscode erhalten? Dann geben Sie diesen bitte hier ein und Sie gelangen direkt zu Ihrem privaten Album.</p>
       </div>
