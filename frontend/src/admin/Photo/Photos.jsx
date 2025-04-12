@@ -86,7 +86,7 @@ export default function Photos({ albumId }) {
             <ul className="photos">
                 {photos.map((photo, index) => (
                     <li key={photo.id || index} className="photos-li">
-                        <img src={photo.imageUrl} alt={photo.name} onClick={() => handleChangePreview(index)} />
+                        <img src={photo.imageUrl} alt={photo.name} onClick={() => handleChangePreview(index)} loading="lazy"/>
                         <button className="delete-button" onClick={() => handleDeleteClick(photo.id)}>
                             <img src={Delete} alt="delete icon" />
                         </button>

@@ -43,7 +43,7 @@ export default function AddAlbum() {
             {albums && albums.length > 0 ? (
                 <ul className='albums'>
                     {albums.map((album) => (
-                        <AlbumItem key={album.id} album={album} setAlbums={setAlbums} onRemove={handleRemoveAlbum} />
+                        <AlbumItem key={album.id} album={album} setAlbums={setAlbums} onRemove={handleRemoveAlbum} loading="lazy" />
                     ))}
                 </ul>
             ) : (

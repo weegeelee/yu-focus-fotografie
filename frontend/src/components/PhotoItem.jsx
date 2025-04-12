@@ -29,7 +29,7 @@ export default function PhotoItem({ photo, index, allPhotos }) {
                     <p className="top-button">
                         <button onClick={() => setPreview(null)}>&#215;</button>
                     </p>
-                    <img src={preview.imageUrl} alt={preview.name} />
+                    <img src={preview.imageUrl} alt={preview.name} loading="lazy"/>
                     <div className="preview-config">
                         <div className="config-box">
                             <button className="left" onClick={() => handleChangePreview(preview.index - 1, allPhotos)}>{'<'}</button>

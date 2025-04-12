@@ -35,7 +35,7 @@ export default function Slider() {
         <div className='carousel'>
             <ul>
                 {imgs.map((img, index) => (
-                    <li key={index}><img src={img} className={currentIndex === index ? 'slide' : 'slide slide-hidden'} /></li>))}
+                    <li key={index}><img src={img} className={currentIndex === index ? 'slide' : 'slide slide-hidden' } loading="lazy" /></li>))}
             </ul>
             <span className='dots'>
                 {imgs.map((_, index) => {
