@@ -46,7 +46,7 @@ router.get('/allalbums', async (req, res) => {
 router.get('/albums/:id', async (req, res) => {
     try {
         const albumId = req.params.id;
-        const album = await PhotoAlbum.findOne({ id: albumId }).populate('photos'); 
+        const album = await PhotoAlbum.findOne({ id: albumId }).populate('photos');
         if (!album) {
             return res.status(404).json({ message: 'Album not found' });
         }
@@ -57,12 +57,13 @@ router.get('/albums/:id', async (req, res) => {
 });
 
 router.delete('/deletealbum/:id', async (req, res) => {
+    console.log("收到删除请求：", req.params.id);
     try {
         const album = await PhotoAlbum.findOne({ id: req.params.id });
         if (!album) {
             return res.status(404).json({ message: "Album not found" });
         }
-        await Photo.deleteMany({ album: album._id }); 
+        await Photo.deleteMany({ album: album._id });
         await PhotoAlbum.findOneAndDelete({ id: req.params.id });
         res.json({ success: true });
     } catch (error) {

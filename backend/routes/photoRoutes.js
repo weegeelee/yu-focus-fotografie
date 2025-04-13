@@ -23,20 +23,22 @@ router.post('/albums/:albumId/photos', uploadPhotos.array('photos'), async (req,
     const newPhotos = await Promise.all(files.map(async (file) => {
 
       const filePath = `photos/${uuidv4()}-${file.originalname}`;
-      const { error } = await supabase.storage.from("photos").upload(filePath, file.buffer, {
+      const { error: uploadError } = await supabase.storage.from("photos").upload(filePath, file.buffer, {
         contentType: file.mimetype,
       });
 
-      if (error) {
-        console.error("上传失败:", error);
-        throw new Error("Supabase 上传失败");
+      if (uploadError) {
+        console.error("upload failed:", uploadError);
+        throw new Error("Supabase upload failed");
       }
-      const imageUrl = supabase.storage.from("photos").getPublicUrl(filePath);
-
+      const {data, error: publicUrlError } = supabase.storage.from("photos").getPublicUrl(filePath);
+      if (publicUrlError || !data?.publicUrl) {
+        throw new Error("Failed to get public URL from Supabase");
+      }
       return {
         id: uuidv4(),
         name: file.originalname,
-        imageUrl,
+        imageUrl: data.publicUrl,
         album: albumExists._id,
       };
     }));
