@@ -91,7 +91,7 @@ export default function Header() {
                     <NavLink to="/" onClick={closeMenu}>Home</NavLink>
                     <NavLink to="/contact" onClick={closeMenu}>Kontakt</NavLink>
                     <NavLink to="/shop" onClick={closeMenu}>Shop</NavLink>
-                    <NavLink to="/login" onClick={closeMenu}>Login</NavLink>
+                    <NavLink to="/login" onClick={closeMenu}>Login | Admin</NavLink>
                 </>
             )}
         </nav>

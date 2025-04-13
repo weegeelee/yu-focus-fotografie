@@ -6,7 +6,7 @@ export default defineConfig({
   base: "./",
   plugins: [
     react(),
-    viteImagemin({
+    ({
       mozjpeg: {
         quality: 70,
       },

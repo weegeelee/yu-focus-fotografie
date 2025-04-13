@@ -7,17 +7,21 @@ import "../components/shop.css"
 export default function Shop() {
   const [albumId, setAlbumId] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     setError("");
+    setLoading(true);
+    
     if (!albumId.trim()) {
-      setError("Bitte geben Sie Ihre Code ein"); 
+      setError("Bitte geben Sie Ihre Code ein");
       return;
     }
     try {
       const response = await api.get(`/albums/${albumId}`);
+
       if (response.data) {
         navigate(`/shop/${albumId}`);
       } else {
@@ -25,8 +29,9 @@ export default function Shop() {
       }
     } catch (error) {
       setError("Code ungültig")
-    }
-  };
+    } finally {
+      setLoading(false);
+  }};
 
   return (
     <form onSubmit={handleSubmit}>
@@ -42,7 +47,8 @@ export default function Shop() {
             <button type="submit">Gehen zum Album</button>
           </p>
         </div>
-        <p className="testcode">Test Code: pvglyf068</p>
+        {loading && <p style={{ marginTop: 10 }}>Es wird geladen...bitte haben Sie noch etwas Geduld</p>}
+        <p className="testcode"><strong>Test Code: pvglyf068</strong></p>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <p>Haben Sie einen Zugangscode erhalten? Dann geben Sie diesen bitte hier ein und Sie gelangen direkt zu Ihrem privaten Album.</p>
       </div>

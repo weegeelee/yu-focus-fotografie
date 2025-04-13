@@ -32,6 +32,7 @@ function App() {
   useAutoLogout();
   return <RouterProvider router={router} />;
 }
+
 function ScrollWrapper() {
   const location = useLocation();
 

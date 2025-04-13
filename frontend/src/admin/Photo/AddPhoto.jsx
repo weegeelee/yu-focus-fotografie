@@ -18,7 +18,7 @@ export default function AddPhoto() {
         if (!albumId) return;
         const fetchPhotos = async () => {
             try {
-                const response = api.get(`/photos?albumId=${albumId}`);
+                const response = await api.get(`/photos?albumId=${albumId}`);
                 setExistingPhotos(response.data);
             } catch (error) {
                 console.error("Error fetching existing photos:", error);
@@ -52,7 +52,9 @@ export default function AddPhoto() {
         files.forEach(file => formData.append("photos", file));
 
         try {
-            const response = await api.post(`/albums/${albumId}/photos`, formData);
+            const response = await api.post(`/albums/${albumId}/photos`, formData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
             console.log("Uploaded successfully", response.data);
             alert("Hochladen ist fertig!");
             setPhotosUpdated(!photosUpdated);

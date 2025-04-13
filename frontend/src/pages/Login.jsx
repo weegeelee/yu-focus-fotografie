@@ -9,10 +9,13 @@ import '../components/authForm.css';
 export default function Login() {
     const dispatch = useDispatch();
     const isAuth = useSelector(state => state.auth.isAuth);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     const [loginError, setLoginError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-
     const albumId = new URLSearchParams(location.search).get("albumId");
     const redirectTo = new URLSearchParams(location.search).get("redirectTo");
 
@@ -41,31 +44,58 @@ export default function Login() {
             });
         }
     }, [isAuth, dispatch, navigate, albumId, redirectTo]);
-
+    
     async function handleSubmit(event) {
         event.preventDefault();
-        const formData = new FormData(event.target);
-        const userData = Object.fromEntries(formData.entries());
+        setLoginError(false);       // Reset errors before each submission
+        setLoading(true);
 
         try {
-            await dispatch(login(userData));
+            await dispatch(login({ email, password }));
             navigate(redirectTo || "/");
         } catch (error) {
             setLoginError(true);
+        } finally {
+            setLoading(false);
         }
     }
+
+    async function handleVisitorLogin() {
+        const visitorEmail = "besucher@gmail.com";
+        const visitorPassword = "123456"; 
+    
+        setEmail(visitorEmail);
+        setPassword(visitorPassword);
+    
+        setLoginError(false);
+        setLoading(true);
+        try {
+          await dispatch(login({ email: visitorEmail, password: visitorPassword }));
+          navigate(redirectTo);
+        } catch (error) {
+          setLoginError(true);
+        } finally {
+          setLoading(false);
+        }
+      }
 
     return (
         <>
             <form onSubmit={handleSubmit} id='login-form'>
                 <h2>Login</h2>
                 <div className='login-box'>
-                    <Input label="E-Mail *" type="email" id="email" name="email" required />
-                    <Input label="Password *" type="password" id="password" name="password" required />
+                    <Input label="E-Mail *" type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <Input label="Password *" type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
                 {loginError && <p className="warn" style={{ color: "rgb(176, 24, 24)" }}>Der Username oder das Passwort ist nicht korrekt.</p>}
+                {loading && <p style={{ marginTop: 10 }}>Es wird bearbeitet, bitte warten...</p>}
                 <p >
-                    <button className='send-button' type="submit">Login</button>
+                    <button className='send-button' type="submit" disabled={loading}>
+                        { loading ? "Login läuft..." : "Login"}
+                    </button>
+                </p>
+                <p >
+                    <button className='send-button' type="button" onClick={handleVisitorLogin} disabled={loading}>als Besucher</button>
                 </p>
                 <p className="auth-change">
                     <span>Ich habe noch keinen Account.</span>

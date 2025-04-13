@@ -50,6 +50,7 @@ export default function AlbumItem({ album, setAlbums, onRemove }) {
     const handleDeleteClick = (albumId) => {
         setSeletedAlbumId(albumId);
         setShowConfirm(true);
+        console.log(albumId);
     };
 
     const handleDeleteAlbum = async () => {

@@ -1,20 +1,25 @@
+import { useState } from "react";
 import Input from "../components/UI/Input.jsx";
 import api from "../../api.js";
 import "../components/form.css";
 
 export default function ContactForm() {
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const formData = new FormData(event.target);
     const contactData = Object.fromEntries(formData.entries());
-    
+
     try {
       const response = await api.post("/contact", contactData);
-      console.log("Response:", response.data); 
-      alert("Message sent successfully!");
+      console.log("Response:", response.data);
+      alert("Nachricht erfolgreich gesendet!");
       event.target.reset();
     } catch (error) {
       console.error('Error uploading message:', error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,8 +36,11 @@ export default function ContactForm() {
         <div className='message-box'>
           <Input label="Nachricht *" textarea id="message" cols="30" rows="6" />
         </div>
+        {loading && <p style={{ marginTop: 10 }}>Ihre Nachricht wird gesendet, bitte warten...</p>}
         <p className='contact-button'>
-          <button>Senden</button>
+          <button disabled={loading}>
+            {loading ? "wird gesendet..." : "Senden"}
+          </button>
         </p>
       </form>
       <div className='bg-box'>
