@@ -44,7 +44,7 @@ export default function Shop() {
             onChange={(event) => setAlbumId(event.target.value)}
             required />
           <p>
-            <button type="submit">Gehen zum Album</button>
+            <button type="submit" disabled={loading}>Gehen zum Album</button>
           </p>
         </div>
         {loading && <p style={{ marginTop: 10 }}>Es wird geladen...bitte haben Sie noch etwas Geduld</p>}
