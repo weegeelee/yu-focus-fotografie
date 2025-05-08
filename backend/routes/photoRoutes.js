@@ -37,8 +37,8 @@ router.post('/albums/:albumId/photos', uploadPhotos.array('photos'), async (req,
       }
       console.log("Uploading photo:", {
   file: file.originalname,
-  publicUrlType: typeof publicData.publicUrl,
-  publicUrlValue: publicData.publicUrl
+  publicUrlType: typeof data.publicUrl,
+  publicUrlValue: data.publicUrl
 });
       return {
         id: uuidv4(),
