@@ -35,6 +35,11 @@ router.post('/albums/:albumId/photos', uploadPhotos.array('photos'), async (req,
       if (publicUrlError || !data?.publicUrl) {
         throw new Error("Failed to get public URL from Supabase");
       }
+      console.log("Uploading photo:", {
+  file: file.originalname,
+  publicUrlType: typeof publicData.publicUrl,
+  publicUrlValue: publicData.publicUrl
+});
       return {
         id: uuidv4(),
         name: file.originalname,
