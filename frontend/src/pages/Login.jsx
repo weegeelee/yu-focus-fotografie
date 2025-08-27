@@ -95,7 +95,7 @@ export default function Login() {
                     </button>
                 </p>
                 <p >
-                    <button className='send-button' type="button" onClick={handleVisitorLogin} disabled={loading}>Admin Login als Besucher</button>
+                //    <button className='send-button' type="button" onClick={handleVisitorLogin} disabled={loading}>Admin Login als Besucher</button>
                 </p>
                 <p className="auth-change">
                     <span>Ich habe noch keinen Account.</span>
